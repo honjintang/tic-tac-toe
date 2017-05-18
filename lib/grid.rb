@@ -26,6 +26,7 @@ class Grid
   end
 
   def draw?
+    setup.flatten.any? { |cell| cell.value != nil } 
   end
 
   private

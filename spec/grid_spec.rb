@@ -35,6 +35,9 @@ describe Grid do
 
   context "#game_over" do
 
+    let(:x_cell) { Test.new(:X) }
+    let(:o_cell) { Test.new(:O) }
+
     it "returns :winner if winner? is true" do
       allow(grid).to receive(:winner?) {true}
       expect(grid.game_over).to eq(:winner)
@@ -48,7 +51,7 @@ describe Grid do
     it "returns :winner when row is complete with same marks" do
       test_config = [[:X, :X, :X],
                      [:O, :X, :O],
-                     [:O, :O, ""]]
+                     [:O, :O, nil]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
@@ -56,7 +59,7 @@ describe Grid do
     it "returns :winner when column is complete with same marks" do
       test_config = [[:X, :X, :O],
                      [:X, :O, :O],
-                     [:X, :O, ""]]
+                     [:X, :O, nil]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
@@ -64,19 +67,26 @@ describe Grid do
     it "returns :winner when left diaganol is complete with same marks" do
       test_config = [[:X, :X, :O],
                      [:X, :O, :X],
-                     [:O, :O, ""]]
+                     [:O, :O, nil]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
 
     it "returns :winner when left diaganol is complete with same marks" do
-      test_config = [[:X, '', :O],
+      test_config = [[:X, nil, :O],
                      [:O, :X, :X],
                      [:O, :O, :X]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
 
+    it "returns :draw when grid is full but no winner" do
+      test_config = [[x_cell,x_cell, o_cell],
+                     [o_cell, o_cell, x_cell],
+                     [x_cell, o_cell, x_cell]]
+      grid = Grid.new(setup: test_config)
+      expect(grid.game_over).to eq(:draw)
+    end
   end
 
 

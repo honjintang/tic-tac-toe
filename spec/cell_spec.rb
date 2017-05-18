@@ -5,8 +5,8 @@ describe Cell do
   subject(:cell) { described_class.new }
 
   context "#initialize" do
-    it "is initialized with a default value of ''" do
-      expect(cell.value).to eq ''
+    it "is initialized with a default value of nil" do
+      expect(cell.value).to eq nil
     end
 
     it 'it can be initialized with a value of X' do

@@ -8,6 +8,14 @@ class Grid
     @setup = input.fetch(:setup, default)
   end
 
+  def set_cell_mark(x, y, mark)
+    get_cell(x, y).value = mark
+  end
+
+  def get_cell(x, y)
+    setup[x][y]
+  end
+
   private
 
   def default

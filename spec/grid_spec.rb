@@ -2,9 +2,8 @@ require 'grid'
 
 describe Grid do
 
-  Test = Struct.new(:value)
-  test_config = [[Test.new('testing'),'',''], ['','',''], ['','','']]
-  subject(:grid) { described_class.new({setup: test_config}) }
+  subject(:grid) { described_class.new }
+  Test_cell = Struct.new(:value)
 
   context "#initialize" do
 
@@ -18,10 +17,12 @@ describe Grid do
       end
     end
 
-  context "#get cell" do
+  context "#get_cell" do
 
     it "returns the cell at a given [x, y] coordinates" do
-      expect(grid.get_cell(0, 0).value).to eq('testing')
+      test_config = [[Test_cell.new(:X),nil,nil], [nil,nil,nil], [nil,nil,nil]]
+      grid = Grid.new({setup: test_config})
+      expect(grid.get_cell(0, 0).value).to eq(:X)
     end
   end
 
@@ -35,8 +36,8 @@ describe Grid do
 
   context "#game_over" do
 
-    let(:x_cell) { Test.new(:X) }
-    let(:o_cell) { Test.new(:O) }
+    let(:x_cell) { Test_cell.new(:X) }
+    let(:o_cell) { Test_cell.new(:O) }
 
     it "returns :winner if winner? is true" do
       allow(grid).to receive(:winner?) {true}
@@ -45,7 +46,7 @@ describe Grid do
 
     it "returns :draw if draw? is true" do
       allow(grid).to receive(:draw?) {true}
-      expect(grid.game_over).to eq(:winner)
+      expect(grid.game_over).to eq(:draw)
     end
 
     it "returns :winner when row is complete with same marks" do
@@ -88,6 +89,8 @@ describe Grid do
       expect(grid.game_over).to eq(:draw)
     end
   end
+
+  
 
 
 

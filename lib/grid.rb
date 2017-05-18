@@ -16,10 +16,57 @@ class Grid
     setup[x][y]
   end
 
+  def game_over
+    return :winner if winner?
+    return :draw if draw?
+  end
+
+  def winner?
+    complete_row? || complete_column? || right_diagonal? || left_diagonal?
+  end
+
+  def draw?
+  end
+
   private
 
   def default
     Array.new(3) { Array.new(3) { Cell.new }}
   end
 
+  def complete_row?
+    setup.any? do |row|
+       cells = [row[0], row[1], row[2]]
+       same_and_not_nil?(cells)
+     end
+  end
+
+  def complete_column?
+    (0...setup.length).any? do |column|
+      cells = [setup[0][column], setup[1][column], setup[2][column]]
+      same_and_not_nil?(cells)
+    end
+  end
+
+  def right_diagonal?
+    cells = [get_cell(0,0), get_cell(1,1), get_cell(2,2)]
+    same_and_not_nil?(cells)
+  end
+
+  def left_diagonal?
+    cells = [get_cell(0,2), get_cell(1,1), get_cell(2,0)]
+    same_and_not_nil?(cells)
+  end
+
+  def same_and_not_nil?(cells)
+    same?(cells) && not_nil?(cells)
+  end
+
+  def same?(cells)
+    cells.uniq.length == 1
+  end
+
+  def not_nil?(cells)
+    cells.compact.length == 3
+  end
 end

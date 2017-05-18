@@ -33,5 +33,54 @@ describe Grid do
     end
   end
 
+  context "#game_over" do
+
+    it "returns :winner if winner? is true" do
+      allow(grid).to receive(:winner?) {true}
+      expect(grid.game_over).to eq(:winner)
+    end
+
+    it "returns :draw if draw? is true" do
+      allow(grid).to receive(:draw?) {true}
+      expect(grid.game_over).to eq(:winner)
+    end
+
+    it "returns :winner when row is complete with same marks" do
+      test_config = [[:X, :X, :X],
+                     [:O, :X, :O],
+                     [:O, :O, ""]]
+      grid = Grid.new(setup: test_config)
+      expect(grid.game_over).to eq(:winner)
+    end
+
+    it "returns :winner when column is complete with same marks" do
+      test_config = [[:X, :X, :O],
+                     [:X, :O, :O],
+                     [:X, :O, ""]]
+      grid = Grid.new(setup: test_config)
+      expect(grid.game_over).to eq(:winner)
+    end
+
+    it "returns :winner when left diaganol is complete with same marks" do
+      test_config = [[:X, :X, :O],
+                     [:X, :O, :X],
+                     [:O, :O, ""]]
+      grid = Grid.new(setup: test_config)
+      expect(grid.game_over).to eq(:winner)
+    end
+
+    it "returns :winner when left diaganol is complete with same marks" do
+      test_config = [[:X, '', :O],
+                     [:O, :X, :X],
+                     [:O, :O, :X]]
+      grid = Grid.new(setup: test_config)
+      expect(grid.game_over).to eq(:winner)
+    end
+
+  end
+
+
+
+
 end
 end

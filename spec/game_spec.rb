@@ -64,7 +64,7 @@ describe Game do
 
      it "announces winner" do
        test_config = [[empty_cell,x_cell, x_cell],
-                       [o_cell, o_cell, x_cell],
+                       [empty_cell, empty_cell, empty_cell],
                        [o_cell, x_cell, o_cell]]
        grid = Grid.new(setup: test_config)
        game = Game.new( {player1: player1, player2: player2, grid: grid} )

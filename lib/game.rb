@@ -15,7 +15,7 @@ class Game
 
   def claim(x,y)
     raise "This cell has already been taken" if grid.get_cell(x,y).value != nil
-    raise "The game is already over" if game_over?
+    raise "The game is already over" if game_finished?
     mark = current_player.mark
     grid.set_cell_mark(x, y, mark)
     announce_winner_or_change_turn
@@ -36,7 +36,7 @@ class Game
     return "Player #{current_player.mark}'s turn"
   end
 
-  def game_over?
+  def game_finished?
     grid.winner? || grid.draw?
   end
 

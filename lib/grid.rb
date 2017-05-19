@@ -26,7 +26,7 @@ class Grid
   end
 
   def draw?
-    setup.flatten.none? { |cell| cell.value == nil } 
+    setup.flatten.none? { |cell| cell.value == nil }
   end
 
   private
@@ -64,10 +64,18 @@ class Grid
   end
 
   def same?(cells)
-    cells.uniq.length == 1
+    values = []
+    cells.each do |cell|
+      values.push(cell.value)
+    end
+    values.uniq.length == 1
   end
 
   def not_nil?(cells)
-    cells.compact.length == 3
+    values = []
+    cells.each do |cell|
+      values.push(cell.value)
+    end
+    values.compact.length == 3
   end
 end

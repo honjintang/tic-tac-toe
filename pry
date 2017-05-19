@@ -1,0 +1,14 @@
+require './lib/player'
+require './lib/grid'
+require './lib/game'
+player1 = Player.new( {mark: :X} )
+player2 = Player.new( {mark: :O} )
+Test_cell = Struct.new(:value)
+x_cell = Test_cell.new(:X)
+o_cell = Test_cell.new(:O)
+empty_cell = Test_cell.new(nil)
+test_config = [[empty_cell,x_cell, x_cell],
+                [o_cell, o_cell, x_cell],
+                [o_cell, x_cell, o_cell]]
+grid = Grid.new(setup: test_config)
+game = Game.new( {player1: player1, player2: player2, grid: grid} )

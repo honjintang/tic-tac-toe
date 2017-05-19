@@ -38,6 +38,7 @@ describe Grid do
 
     let(:x_cell) { Test_cell.new(:X) }
     let(:o_cell) { Test_cell.new(:O) }
+    let(:empty_cell) { Test_cell.new }
 
     it "returns :winner if winner? is true" do
       allow(grid).to receive(:winner?) {true}
@@ -50,33 +51,33 @@ describe Grid do
     end
 
     it "returns :winner when row is complete with same marks" do
-      test_config = [[:X, :X, :X],
-                     [:O, :X, :O],
-                     [:O, :O, nil]]
+      test_config = [[x_cell,x_cell, x_cell],
+                     [empty_cell, o_cell, o_cell],
+                     [o_cell, o_cell, x_cell]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
 
     it "returns :winner when column is complete with same marks" do
-      test_config = [[:X, :X, :O],
-                     [:X, :O, :O],
-                     [:X, :O, nil]]
+      test_config = [[x_cell,empty_cell, o_cell],
+                     [x_cell, o_cell, o_cell],
+                     [x_cell, o_cell, x_cell]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
 
     it "returns :winner when left diaganol is complete with same marks" do
-      test_config = [[:X, :X, :O],
-                     [:X, :O, :X],
-                     [:O, :O, nil]]
+      test_config = [[x_cell,empty_cell, o_cell],
+                     [o_cell, o_cell, x_cell],
+                     [o_cell, x_cell, x_cell]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
 
     it "returns :winner when left diaganol is complete with same marks" do
-      test_config = [[:X, nil, :O],
-                     [:O, :X, :X],
-                     [:O, :O, :X]]
+      test_config = [[x_cell,empty_cell, o_cell],
+                     [o_cell, x_cell, x_cell],
+                     [x_cell, o_cell, x_cell]]
       grid = Grid.new(setup: test_config)
       expect(grid.game_over).to eq(:winner)
     end
@@ -90,7 +91,7 @@ describe Grid do
     end
   end
 
-  
+
 
 
 

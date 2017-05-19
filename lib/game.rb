@@ -18,26 +18,26 @@ class Game
     raise "The game is already over" if game_over?
     mark = current_player.mark
     grid.set_cell_mark(x, y, mark)
-    return "Player #{current_player.mark} wins!" if grid.winner?
-    return "Draw!" if grid.draw?
-    change_turns
+    announce_winner_or_change_turn
   end
 
   private
 
   attr_writer :current_player
 
-def change_turns
-  if current_player == player1
-    self.current_player = player2
-  else
-    self.current_player = player1
+  def announce_winner_or_change_turn
+    return "Player #{current_player.mark} wins!" if grid.winner?
+    return "Draw!" if grid.draw?
+    change_turns
   end
-  return "Player #{current_player.mark}'s turn"
-end
 
+  def change_turns
+    current_player == player1 ? self.current_player = player2 : self.current_player = player1
+    return "Player #{current_player.mark}'s turn"
+  end
 
   def game_over?
     grid.winner? || grid.draw?
   end
+
 end

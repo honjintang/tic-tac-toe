@@ -79,8 +79,6 @@ describe Game do
        game = Game.new( {player1: player1, player2: player2, grid: grid} )
        expect(game.claim(0,0)).to eq("Draw!")
      end
-
-  end
-
-  end
+   end
+end
 end
